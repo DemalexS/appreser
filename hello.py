@@ -1,9 +1,9 @@
-from flask import Flask, request, jsonify, abort, redirect, url_for, render_template, send_file, flash, redirect, url_for
+from flask import Flask, request, jsonify, abort, redirect, url_for, render_template, send_file, flash
 from bs4 import BeautifulSoup
 import requests, statistics
 import openpyxl
-import numpy as np
-import pandas as pd
+#import numpy as np
+#import pandas as pd
 from flask_wtf import FlaskForm
 from wtforms import StringField, FileField
 from wtforms.validators import DataRequired
