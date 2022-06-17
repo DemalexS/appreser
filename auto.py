@@ -310,46 +310,46 @@ def autoru_appraiser(wbname):
             if wsanalog.cell(row=ip-1, column=19).value == '':
                 break
         ip = 2
-
-        totalprice = round(totalpriceall / (ic - 2), -3)
-        print(statistics.median(totalpricemedian))
-        print(totalprice)
-        while ip <= ic-1:
-            if int(wsanalog.cell(row=ip, column=19).value)/statistics.median(totalpricemedian) > 1.15 or int(wsanalog.cell(row=ip, column=19).value)/statistics.median(totalpricemedian) < 0.85:
-                totalpriceall = totalpriceall - int(wsanalog.cell(row=ip, column=19).value)
-                totalpricemedian.remove(int(wsanalog.cell(row=ip, column=19).value))
-                wsanalog.delete_rows(ip, 1)
-                wb.save(wbname)
-                ic=ic-1
-                totalprice = round(totalpriceall / (ic-2), -3)
-                print('удаляем', ip)
-                ip = ip - 1
-            ip = ip + 1
-            if wsanalog.cell(row=ip-1, column=19).value == '':
-                break
-        ip = 2
-        #ic = i
-        
-        totalprice = round(totalpriceall / (ic - 2), -3)
-        print(statistics.median(totalpricemedian))
-        print(totalprice)
-        while ip <= ic - 1:
-            if int(wsanalog.cell(row=ip, column=19).value) / statistics.median(totalpricemedian) > 1.17 or int(
-                    wsanalog.cell(row=ip, column=19).value) / statistics.median(totalpricemedian) < 0.83:
-                totalpriceall = totalpriceall - int(wsanalog.cell(row=ip, column=19).value)
-                wsanalog.delete_rows(ip, 1)
-                wb.save(wbname)
-                ic = ic - 1
-                totalprice = round(totalpriceall / (ic - 2), -3)
-                print('удаляем', ip)
-                ip = ip - 1
-            ip = ip + 1
-            if wsanalog.cell(row=ip - 1, column=19).value == '':
-                break
-        print(iobj-1, year1, totalprice, statistics.median(totalpricemedian))
-        #totalprice = round(totalpriceall/(iс-2),-3)
-        #except:
-        #    totalprice = 'Аналоги не найдены. Попробуйте изменить параметры ТС'
+        try:
+            totalprice = round(totalpriceall / (ic - 2), -3)
+            print(statistics.median(totalpricemedian))
+            print(totalprice)
+            while ip <= ic-1:
+                if int(wsanalog.cell(row=ip, column=19).value)/statistics.median(totalpricemedian) > 1.15 or int(wsanalog.cell(row=ip, column=19).value)/statistics.median(totalpricemedian) < 0.85:
+                    totalpriceall = totalpriceall - int(wsanalog.cell(row=ip, column=19).value)
+                    totalpricemedian.remove(int(wsanalog.cell(row=ip, column=19).value))
+                    wsanalog.delete_rows(ip, 1)
+                    wb.save(wbname)
+                    ic=ic-1
+                    totalprice = round(totalpriceall / (ic-2), -3)
+                    print('удаляем', ip)
+                    ip = ip - 1
+                ip = ip + 1
+                if wsanalog.cell(row=ip-1, column=19).value == '':
+                    break
+            ip = 2
+            #ic = i
+            
+            totalprice = round(totalpriceall / (ic - 2), -3)
+            print(statistics.median(totalpricemedian))
+            print(totalprice)
+            while ip <= ic - 1:
+                if int(wsanalog.cell(row=ip, column=19).value) / statistics.median(totalpricemedian) > 1.17 or int(
+                        wsanalog.cell(row=ip, column=19).value) / statistics.median(totalpricemedian) < 0.83:
+                    totalpriceall = totalpriceall - int(wsanalog.cell(row=ip, column=19).value)
+                    wsanalog.delete_rows(ip, 1)
+                    wb.save(wbname)
+                    ic = ic - 1
+                    totalprice = round(totalpriceall / (ic - 2), -3)
+                    print('удаляем', ip)
+                    ip = ip - 1
+                ip = ip + 1
+                if wsanalog.cell(row=ip - 1, column=19).value == '':
+                    break
+            print(iobj-1, year1, totalprice, statistics.median(totalpricemedian))
+            #totalprice = round(totalpriceall/(iс-2),-3)
+            except:
+            totalprice = 'Аналоги не найдены. Попробуйте изменить параметры ТС'
         sheetobject.cell(row=iobj, column=12).value = totalprice
         if sheetobject.cell(row=iobj, column=1).value == '':
             break
