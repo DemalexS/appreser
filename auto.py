@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import openpyxl
 import statistics
-
+ 
 wbname = 'Аналоги.xlsx'
 def autoru_appraiser(wbname):
     wb = openpyxl.load_workbook(wbname)
