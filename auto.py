@@ -350,6 +350,7 @@ def autoru_appraiser(wbname):
             #totalprice = round(totalpriceall/(iс-2),-3)
         except:
             totalprice = 'Аналоги не найдены. Попробуйте изменить параметры ТС'
+            
         sheetobject.cell(row=iobj, column=12).value = totalprice
         if sheetobject.cell(row=iobj, column=1).value == '':
             break
