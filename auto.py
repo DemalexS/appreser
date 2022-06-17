@@ -312,8 +312,8 @@ def autoru_appraiser(wbname):
         ip = 2
         try:
             totalprice = round(totalpriceall / (ic - 2), -3)
-            print(statistics.median(totalpricemedian))
-            print(totalprice)
+            #print(statistics.median(totalpricemedian))
+            #print(totalprice)
             while ip <= ic-1:
                 if int(wsanalog.cell(row=ip, column=19).value)/statistics.median(totalpricemedian) > 1.15 or int(wsanalog.cell(row=ip, column=19).value)/statistics.median(totalpricemedian) < 0.85:
                     totalpriceall = totalpriceall - int(wsanalog.cell(row=ip, column=19).value)
@@ -350,7 +350,7 @@ def autoru_appraiser(wbname):
             #totalprice = round(totalpriceall/(iс-2),-3)
         except:
             totalprice = 'Аналоги не найдены. Попробуйте изменить параметры ТС'
-            
+
         sheetobject.cell(row=iobj, column=12).value = totalprice
         if sheetobject.cell(row=iobj, column=1).value == '':
             break
