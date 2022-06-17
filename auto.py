@@ -331,8 +331,8 @@ def autoru_appraiser(wbname):
             #ic = i
             
             totalprice = round(totalpriceall / (ic - 2), -3)
-            print(statistics.median(totalpricemedian))
-            print(totalprice)
+            #print(statistics.median(totalpricemedian))
+            #print(totalprice)
             while ip <= ic - 1:
                 if int(wsanalog.cell(row=ip, column=19).value) / statistics.median(totalpricemedian) > 1.17 or int(
                         wsanalog.cell(row=ip, column=19).value) / statistics.median(totalpricemedian) < 0.83:
