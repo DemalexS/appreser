@@ -348,7 +348,7 @@ def autoru_appraiser(wbname):
                     break
             print(iobj-1, year1, totalprice, statistics.median(totalpricemedian))
             #totalprice = round(totalpriceall/(iс-2),-3)
-            except:
+        except:
             totalprice = 'Аналоги не найдены. Попробуйте изменить параметры ТС'
         sheetobject.cell(row=iobj, column=12).value = totalprice
         if sheetobject.cell(row=iobj, column=1).value == '':
