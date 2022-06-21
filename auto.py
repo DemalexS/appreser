@@ -168,7 +168,8 @@ def autoru_appraiser(wbname):
         resp.encoding = 'utf-8'
         if 'Ничего не найдено' in resp.text:
             sheetobject.cell(row=iobj, column=12).value = 'Аналоги не найдены. Попробуйте изменить параметры ТС'
-            break
+            iobj = iobj + 1
+            continue
         soup = BeautifulSoup(resp.text, 'html.parser')
         
         marka = soup.findAll('a', {'class' : 'Link BreadcrumbsGroup__itemText'})
