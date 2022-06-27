@@ -4,11 +4,9 @@ from random import choice
 import requests
 import openpyxl
 import statistics
-import undetected_chromedriver as uc
  
 wbname = 'Аналоги.xlsx'
 def autoru_appraiser(wbname):
-    driver = uc.Chrome()
     wb = openpyxl.load_workbook(wbname)
     sheetanalog = wb['Аналоги']
     sheetobject = wb['Объекты оценки']
@@ -178,7 +176,7 @@ def autoru_appraiser(wbname):
         #GASOLINE&engine_group=DIESEL&engine_group=HYBRID&engine_group=ELECTRO
         #FORWARD_CONTROL&gear_type=REAR_DRIVE&gear_type=ALL_WHEEL_DRIVE
         print(url)
-        resp = driver.get(url)#,headers=random_headers(), proxies = proxyDict, verify = False)
+        resp = requests.get(url)#,headers=random_headers(), proxies = proxyDict, verify = False)
         resp.encoding = 'utf-8'
         if 'Ничего не найдено' in resp.text or 'Страница не найдена' in resp.text:
             sheetobject.cell(row=iobj, column=12).value = 'Аналоги не найдены. Попробуйте изменить параметры ТС'
