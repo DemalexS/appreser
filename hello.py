@@ -34,9 +34,7 @@ def submit():
     if form.validate_on_submit():
         f = form.file.data
         filename = 'analogi.xlsx'
-        f.save(os.path.join(
-            filename
-        ))
+        f.save(os.path.join(filename))
         auto.autoru_appraiser(filename)
         
 
