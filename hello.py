@@ -35,7 +35,7 @@ def submit():
         f = form.file.data
         filename = 'Аналоги.xlsx'
         f.save(os.path.join(
-            filename
+            str(filename)
         ))
         auto.autoru_appraiser(filename)
         
