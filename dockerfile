@@ -4,4 +4,4 @@ COPY . /root
 
 WORKDIR /root
 
-RUN pip install flask gunicorn flask_wtf requests openpyxl bs4
+RUN pip install flask gunicorn flask_wtf requests openpyxl bs4 undetected-chromedriver
