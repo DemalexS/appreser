@@ -1,5 +1,6 @@
 from pprint import pprint
 from bs4 import BeautifulSoup
+from random import choice
 import requests
 import openpyxl
 import statistics
@@ -11,7 +12,16 @@ def autoru_appraiser(wbname):
     sheetobject = wb['Объекты оценки']
     columns = ['Марка',	'Модель','Год выпуска','Объем двигателя','Мощность двигателя','Тип двигателя',	'Привод',	'Тип кузова',	'Тип КПП',	'Цвет',	'Пробег',	'Цена',	'Ссылка', '', 'Цена с корректировкой на торг', 'Цена с корректировкой на год', 'Цена с коррестировкой на пробег', 'Валовая корректировка', 'Стоимость с учетом всех корректировок']
     iobj = 2
-
+    desktop_agents = ['Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
+                 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
+                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
+                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14',
+                 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
+                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36',
+                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36',
+                 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
+                 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
+                 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0']
     #login = str(sheetobject.cell(row=1, column=14).value)
     #password = str(sheetobject.cell(row=1, column=16).value)
     #http_proxy  = "http://" + login + ":" + password + "@bcpsg-moscow.headoffice.psbank.local:8080"
@@ -20,7 +30,9 @@ def autoru_appraiser(wbname):
     #              "http"  : http_proxy,
     #             "https" : https_proxy
     #          }
-
+    def random_headers():
+        return {'User-Agent': choice(desktop_agents),'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'}
+    
     while sheetobject.cell(row=iobj, column=1).value != '':
         objmarka = sheetobject.cell(row=iobj, column=1).value
         try:
@@ -40,13 +52,13 @@ def autoru_appraiser(wbname):
         #objeng = sheetobject.cell(row=iobj, column=6).value
         #КПП
         if sheetobject.cell(row=iobj, column=9).value == 'робот':
-            objkpp = 'ROBOT'
+            objkpp = 'ROBOT&transmission=AUTOMATIC'
         elif sheetobject.cell(row=iobj, column=9).value == 'механика':
             objkpp = 'MECHANICAL'
         elif sheetobject.cell(row=iobj, column=9).value == 'автомат':
             objkpp = 'AUTOMATIC'
         elif sheetobject.cell(row=iobj, column=9).value == 'вариатор':
-            objkpp = 'VARIATOR'
+            objkpp = 'VARIATOR&transmission=AUTOMATIC'
         #ПРИВОД
         if sheetobject.cell(row=iobj, column=7).value == 'полный':
             objgear = 'ALL_WHEEL_DRIVE'
@@ -164,9 +176,9 @@ def autoru_appraiser(wbname):
         #GASOLINE&engine_group=DIESEL&engine_group=HYBRID&engine_group=ELECTRO
         #FORWARD_CONTROL&gear_type=REAR_DRIVE&gear_type=ALL_WHEEL_DRIVE
         print(url)
-        resp = requests.get(url)#, proxies = proxyDict, verify = False)
+        resp = requests.get(url,headers=random_headers())#, proxies = proxyDict, verify = False)
         resp.encoding = 'utf-8'
-        if 'Ничего не найдено' in resp.text:
+        if 'Ничего не найдено' in resp.text or 'Страница не найдена' in resp.text:
             sheetobject.cell(row=iobj, column=12).value = 'Аналоги не найдены. Попробуйте изменить параметры ТС'
             iobj = iobj + 1
             continue
