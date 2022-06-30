@@ -259,6 +259,7 @@ def autoru_appraiser(wbname):
             # driver.quit()
             break
         #print(soup.text)
+        
         marka = soup.findAll('a', {'class' : 'Link BreadcrumbsGroup__itemText'})
         marka = marka[1].text
         model = soup.find('span', {'class' : 'BreadcrumbsGroup__itemText'}).text.replace(marka+' ','')
