@@ -1,37 +1,42 @@
+from http import cookies
 from pprint import pprint
 from bs4 import BeautifulSoup
 from random import choice
 import requests
 import openpyxl
+from fake_useragent import UserAgent
 import statistics
- 
+# import undetected_chromedriver as UC_1
+# import selenium
+# import os
+# import time
+
 wbname = 'Аналоги.xlsx'
 def autoru_appraiser(wbname):
+    
+    # UC_1.TARGET_VERSION = 103
+    # options = UC_1.ChromeOptions()
+    # options.add_argument("--headless")
+    # options.add_argument('--no-sandbox')
+    # options.add_argument('--disable-dev-shm-usage')
+    # options.add_argument("--disable-extensions")
+    # options.add_argument('--disable-gpu')
+    # options.add_argument('--disable-useAutomationExtension')
+    # options.add_argument("--incognito")
+    # options.add_argument("--disable-blink-features")
+    # options.add_argument('--user-data-dir=/tmp/user-data')
+    # options.add_argument('--ignore-certificate-errors')
+    # options.add_argument('--disk-cache-dir=/tmp/cache-dir')
+    # options.add_argument("user-data-dir=./chromeprofile")
+    # options.add_argument("user-agent = Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36")
+    # options.add_argument("--disable-plugins-discovery")
+
     wb = openpyxl.load_workbook(wbname)
     sheetanalog = wb['Аналоги']
     sheetobject = wb['Объекты оценки']
     columns = ['Марка',	'Модель','Год выпуска','Объем двигателя','Мощность двигателя','Тип двигателя',	'Привод',	'Тип кузова',	'Тип КПП',	'Цвет',	'Пробег',	'Цена',	'Ссылка', '', 'Цена с корректировкой на торг', 'Цена с корректировкой на год', 'Цена с коррестировкой на пробег', 'Валовая корректировка', 'Стоимость с учетом всех корректировок']
     iobj = 2
-    desktop_agents = ['Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
-                 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
-                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
-                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14',
-                 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
-                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36',
-                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36',
-                 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
-                 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
-                 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0']
-    #login = str(sheetobject.cell(row=1, column=14).value)
-    #password = str(sheetobject.cell(row=1, column=16).value)
-    #http_proxy  = "http://" + login + ":" + password + "@bcpsg-moscow.headoffice.psbank.local:8080"
-    #https_proxy = "https://" + login + ":" + password + "@bcpsg-moscow.headoffice.psbank.local:8080"
-    #proxyDict = {
-    #              "http"  : http_proxy,
-    #             "https" : https_proxy
-    #          }
-    def random_headers():
-        return {'User-Agent': choice(desktop_agents),'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'}
+    
     
     while sheetobject.cell(row=iobj, column=1).value != '':
         objmarka = sheetobject.cell(row=iobj, column=1).value
@@ -176,14 +181,84 @@ def autoru_appraiser(wbname):
         #GASOLINE&engine_group=DIESEL&engine_group=HYBRID&engine_group=ELECTRO
         #FORWARD_CONTROL&gear_type=REAR_DRIVE&gear_type=ALL_WHEEL_DRIVE
         print(url)
-        resp = requests.get(url)#,headers=random_headers(), proxies = proxyDict, verify = False)
+        
+        # ua = UserAgent()
+        # headers = {'User-Agent': ua.random}
+        # driver = UC_1.Chrome(driver_executable_path = os.environ.get('CHROMEDRIVER_PATH'), options = options, use_subprocess = True)
+        
+        # driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+        #     "source": """
+        #         const newProto = navigator.__proto__
+        #         delete newProto.webdriver
+        #         navigator.__proto__ = newProto
+        #         """
+        #     })
+        # driver.get(url)#,headers=random_headers(), proxies = proxyDict, verify = False)
+        # resp = driver.page_source
+        user = UserAgent().random
+        cookies = {'_csrf_token': '4339396c17d0de9eae9f1c650ec6066a45eab30e862fd11a', 
+                'suid': 'e43436fa3922a09ece744acad847503e.8fd345446dfa3dae2686e14b002e5a12',
+                'from': 'direct', 
+                'gdpr': '0',
+                '_ym_uid': '1637562172583098176', 
+                'BCSI-CS-e9746730d4af8182': '2', 
+                'deal_million_popup_page_seen': '-1', 
+                'gids': '', 
+                'yandex_login': '', 
+                'i': '8G6VlKR8YEZvnjkNFTIFPZe2rF2H5KWi69dPC09SbC9CJQNViEIvo5s06pT+nQtJZj+lhsfJyJ5xGS/TT8826ybrqDU=', 
+                'gradius': '200', 
+                'BCSI-CS-31c2a4b3bbb1d3f2': '2', 
+                'yandexuid': '3780874931628665890', 
+                'my': 'YwA%3D', 
+                'autoruuid': 'g62ac378b23hvln2euamj42uhve65tvs.95f9ed57c37bcb7f519e00b7629f14f4', 
+                'safe_deal_promo': '3', 
+                'panorama_press_and_spin_closed': 'true', 
+                'yuidlt': '1', 
+                'autoru_sid': 'a%3Ag62ac378b23hvln2euamj42uhve65tvs.95f9ed57c37bcb7f519e00b7629f14f4%7C1656335449507.604800.sj70OMADbmrSXwek-p4Srw.2bX02SYAKC-p67hhzvcU0PBvs-lBCTApLSn8ATfEWNg', 
+                'spravka': 'dD0xNjU2MzQwMDE4O2k9OTEuMjIzLjYzLjcxO0Q9M0I0QjVFNUFFNjJGMjIwOEE5NjE0RENGOTM0REQ1OEJCRUUwMkNEQzE0Q0E0NjcxN0YxNDBEOTFGQjYyMkFDNTIzRjREOTUxO3U9MTY1NjM0MDAxODc5MzY2OTkxMTtoPTk0ZjUyMWM2MDFlNTA4ZDNhYTBlMjk5NWFmODY5NDJh', 
+                '_yasc': '7yvXfv3UnghJNLlTdbNzKxvUIVXpMsokVAW6ksN2wxXuqaEf', 
+                'autoru-visits-count': '9', 
+                '_ym_isad': '2', 
+                'ys': 'c_chck.3966782579', 
+                'mda2_beacon': '1656572550206', 
+                'from_lifetime': '1656572551611', 
+                '_ym_d': '1656572551', 
+                'cycada': 'vSZ8GwepZ9WvKrK76MQTehBqOB75p8DO44Pj0lAPZes='}
+        headers = {'user-agent': user,
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", 
+                "Accept-Encoding": "gzip, deflate, br", 
+                "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7", 
+                "Sec-Fetch-Dest": "document", 
+                "Sec-Fetch-Mode": "navigate", 
+                "Sec-Fetch-Site": "cross-site", 
+                "Sec-Fetch-User": "?1", 
+                "Upgrade-Insecure-Requests": "1", }#'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
+        s = requests.Session()
+        resp = s.get('https://auto.ru/', headers=headers, cookies=cookies)#, headers=headers
         resp.encoding = 'utf-8'
-        if 'Ничего не найдено' in resp.text or 'Страница не найдена' in resp.text:
+        if 'Ой!' in resp.text:
+            print(resp.request.headers)
+            print(s.headers)
+            print('first fuck!!!!!')
+            # driver.quit()
+            break
+        
+        print(s.cookies)
+        resp = s.get(url, headers=headers, cookies=cookies)
+        print(s.headers)
+        resp.encoding = 'utf-8'
+        print('5')
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        if 'Ничего не найдено' in soup.text or 'Страница не найдена' in soup.text:
             sheetobject.cell(row=iobj, column=12).value = 'Аналоги не найдены. Попробуйте изменить параметры ТС'
             iobj = iobj + 1
+            # driver.quit()
             continue
-        soup = BeautifulSoup(resp.text, 'html.parser')
-        
+        if 'Ой!' in soup.text:
+            print('fuck!!!!!')
+            # driver.quit()
+            break
+        #print(soup.text)
         marka = soup.findAll('a', {'class' : 'Link BreadcrumbsGroup__itemText'})
         marka = marka[1].text
         model = soup.find('span', {'class' : 'BreadcrumbsGroup__itemText'}).text.replace(marka+' ','')
@@ -370,8 +445,11 @@ def autoru_appraiser(wbname):
         sheetobject.cell(row=iobj, column=12).value = totalprice
         if sheetobject.cell(row=iobj, column=1).value == '':
             break
+        # driver.quit()
         iobj = iobj + 1
+
     wb.save(wbname)
 #pprint.pp(cartech)
 
 #<div class="ListingItem__kmAge">50&nbsp;км</div>
+# autoru_appraiser(wbname)
