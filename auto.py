@@ -6,31 +6,10 @@ import requests
 import openpyxl
 from fake_useragent import UserAgent
 import statistics
-# import undetected_chromedriver as UC_1
-# import selenium
-# import os
-# import time
 
 wbname = 'Аналоги.xlsx'
 def autoru_appraiser(wbname):
     
-    # UC_1.TARGET_VERSION = 103
-    # options = UC_1.ChromeOptions()
-    # options.add_argument("--headless")
-    # options.add_argument('--no-sandbox')
-    # options.add_argument('--disable-dev-shm-usage')
-    # options.add_argument("--disable-extensions")
-    # options.add_argument('--disable-gpu')
-    # options.add_argument('--disable-useAutomationExtension')
-    # options.add_argument("--incognito")
-    # options.add_argument("--disable-blink-features")
-    # options.add_argument('--user-data-dir=/tmp/user-data')
-    # options.add_argument('--ignore-certificate-errors')
-    # options.add_argument('--disk-cache-dir=/tmp/cache-dir')
-    # options.add_argument("user-data-dir=./chromeprofile")
-    # options.add_argument("user-agent = Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36")
-    # options.add_argument("--disable-plugins-discovery")
-
     wb = openpyxl.load_workbook(wbname)
     sheetanalog = wb['Аналоги']
     sheetobject = wb['Объекты оценки']
@@ -181,20 +160,7 @@ def autoru_appraiser(wbname):
         #GASOLINE&engine_group=DIESEL&engine_group=HYBRID&engine_group=ELECTRO
         #FORWARD_CONTROL&gear_type=REAR_DRIVE&gear_type=ALL_WHEEL_DRIVE
         print(url)
-        
-        # ua = UserAgent()
-        # headers = {'User-Agent': ua.random}
-        # driver = UC_1.Chrome(driver_executable_path = os.environ.get('CHROMEDRIVER_PATH'), options = options, use_subprocess = True)
-        
-        # driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-        #     "source": """
-        #         const newProto = navigator.__proto__
-        #         delete newProto.webdriver
-        #         navigator.__proto__ = newProto
-        #         """
-        #     })
-        # driver.get(url)#,headers=random_headers(), proxies = proxyDict, verify = False)
-        # resp = driver.page_source
+                
         user = UserAgent().random
         cookies = {'_csrf_token': '4339396c17d0de9eae9f1c650ec6066a45eab30e862fd11a', 
                 'suid': 'e43436fa3922a09ece744acad847503e.8fd345446dfa3dae2686e14b002e5a12',
@@ -450,7 +416,3 @@ def autoru_appraiser(wbname):
         iobj = iobj + 1
 
     wb.save(wbname)
-#pprint.pp(cartech)
-
-#<div class="ListingItem__kmAge">50&nbsp;км</div>
-# autoru_appraiser(wbname)

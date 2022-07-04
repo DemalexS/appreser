@@ -2,8 +2,6 @@ from flask import Flask, request, jsonify, abort, redirect, url_for, render_temp
 from bs4 import BeautifulSoup
 import requests, statistics
 import openpyxl
-#import numpy as np
-#import pandas as pd
 from flask_wtf import FlaskForm
 from wtforms import StringField, FileField
 from wtforms.validators import DataRequired
@@ -21,11 +19,24 @@ app.config.update(dict(
 
 @app.route('/')
 def redir_submit():
-    return redirect(url_for('submit'))
+    return redirect(url_for('form'))
 
 class MyForm(FlaskForm):
     # name = 'name'
     file = FileField(validators=[DataRequired()])
+@app.route('/form', methods=['GET', 'POST'])
+def form():
+
+    #Причем в начале проверяем наличие авторизации, если флага нет, то кидаем обработку 401 ошибки и не даем работать с прогой
+    # if not session.get('logged_in'):
+    #     abort(401)
+
+    """
+    Тут делаем что-то полезное в случае успешной авторизации
+    """
+
+    return render_template('form.html')
+
 
 @app.route('/submit', methods=('GET', 'POST'))
 def submit():
@@ -44,6 +55,11 @@ def submit():
                      as_attachment=True)
         
     return render_template('submit.html', form=form)
+
+@app.errorhandler(500)
+def page_not_found(e):
+    error = 'Произошла ошибка при работе скрипта, вероятно auto.ru опять показывает капчу. Сообщите об этом Алексею прямо сейчас.'
+    return render_template('form.html', error=error), 500
  
 if __name__ == "__main__":
     app.run(debug=True)

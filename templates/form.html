@@ -21,7 +21,7 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="navbar-brand" href="form">PSBcars &#9951;</a>
+            <a class="navbar-brand" href="form.html">PSBcars &#9951;</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="submit">Загрузить файл</a>
@@ -43,13 +43,5 @@
         </ul>
       </nav>
 
-        <h1>Выберете файл для расчета</h1>
-        <form method="POST" action="/submit" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            
-            {{ form.file.label }} {{ form.file(size=20) }}
-            <input type="submit" value="Оценить">
-
-        </form> 
   </body>
 </html>
