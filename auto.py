@@ -150,6 +150,8 @@ def autoru_appraiser(wbname):
         millage2 = int(objmileage) * 1.25
         if millage2 < 10000:
             millage2 = millage2 + 30000
+        if millage2 > 200000:
+            millage1 = 100000
         totalprice = 0
         totalpriceall = 0
         totalpricemedian = []
