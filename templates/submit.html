@@ -43,13 +43,13 @@
         </ul>
       </nav>
 
-        <h1>Выберете файл для расчета</h1>
-        <form method="POST" action="/submit" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            
-            {{ form.file.label }} {{ form.file(size=20) }}
-            <input type="submit" value="Оценить">
+    <h1>Выберете файл для расчета</h1>
+    <form method="POST" action="/submit" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        
+        {{ form.file.label }} {{ form.file(size=20) }}
+        <input type="submit" value="Оценить">
 
-        </form> 
+    </form> 
   </body>
 </html>
