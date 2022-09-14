@@ -1,4 +1,5 @@
 from http import cookies
+from os import lseek
 from pprint import pprint
 from bs4 import BeautifulSoup
 from random import choice
@@ -9,7 +10,7 @@ import statistics
 
 wbname = 'Аналоги.xlsx'
 def autoru_appraiser(wbname):
-    
+    print(1)
     wb = openpyxl.load_workbook(wbname)
     sheetanalog = wb['Аналоги']
     sheetobject = wb['Объекты оценки']
@@ -19,86 +20,92 @@ def autoru_appraiser(wbname):
     
     while sheetobject.cell(row=iobj, column=1).value != '':
         objmarka = sheetobject.cell(row=iobj, column=1).value
+        objmodel = sheetobject.cell(row=iobj, column=2).value
+        objyear = sheetobject.cell(row=iobj, column=3).value
+        objengvol = sheetobject.cell(row=iobj, column=4).value
+        objhp = sheetobject.cell(row=iobj, column=5).value
+        objkpp = sheetobject.cell(row=iobj, column=9).value
+        objgear = sheetobject.cell(row=iobj, column=7).value
+        objeng = sheetobject.cell(row=iobj, column=6).value
+        objtob = sheetobject.cell(row=iobj, column=8).value
+        objmileage = sheetobject.cell(row=iobj, column=11).value
+        
         try:
             objmarka = objmarka.replace('-', '_')
             objmarka = objmarka.replace(' ', '_')
         except:
             pass
-        objmodel = sheetobject.cell(row=iobj, column=2).value
+        
         try:
             objmodel = objmodel.replace('-', '_')
             objmodel = objmodel.replace(' ', '_')
         except:
             pass
-        objyear = sheetobject.cell(row=iobj, column=3).value
-        objengvol = sheetobject.cell(row=iobj, column=4).value
-        objhp = sheetobject.cell(row=iobj, column=5).value
+        
         #objeng = sheetobject.cell(row=iobj, column=6).value
         #КПП
-        if sheetobject.cell(row=iobj, column=9).value == 'робот':
-            objkpp = 'ROBOT&transmission=AUTOMATIC'
-        elif sheetobject.cell(row=iobj, column=9).value == 'механика':
+        if objkpp == 'робот' or objkpp == 'автомат' or objkpp == 'вариатор':
+            objkpp = 'AUTOMATIC&transmission=ROBOT&transmission=VARIATOR'
+        elif objkpp == 'механика':
             objkpp = 'MECHANICAL'
-        elif sheetobject.cell(row=iobj, column=9).value == 'автомат':
-            objkpp = 'AUTOMATIC'
-        elif sheetobject.cell(row=iobj, column=9).value == 'вариатор':
-            objkpp = 'VARIATOR&transmission=AUTOMATIC'
+        
         #ПРИВОД
-        if sheetobject.cell(row=iobj, column=7).value == 'полный':
+        if objgear == 'полный':
             objgear = 'ALL_WHEEL_DRIVE'
-        if sheetobject.cell(row=iobj, column=7).value == 'задний':
+        if objgear == 'задний':
             objgear = 'REAR_DRIVE'
-        if sheetobject.cell(row=iobj, column=7).value == 'передний':
+        if objgear == 'передний':
             objgear = 'FORWARD_CONTROL'
         #Тип двигателя
-        if sheetobject.cell(row=iobj, column=6).value == 'бензин':
+        if objeng == 'бензин':
             objeng = 'GASOLINE'
-        elif sheetobject.cell(row=iobj, column=6).value == 'дизель':
+        elif objeng == 'дизель':
             objeng = 'DIESEL'
-        elif sheetobject.cell(row=iobj, column=6).value == 'гибрид':
+        elif objeng == 'гибрид':
             objeng = 'HYBRID'
-        elif sheetobject.cell(row=iobj, column=6).value == 'электро':
+        elif objeng == 'электро':
             objeng = 'ELECTRO'
         #Тип кузова
-        if sheetobject.cell(row=iobj, column=8).value == 'седан':
+        if objtob == 'седан':
             objtob = 'SEDAN'
-        elif sheetobject.cell(row=iobj, column=8).value == 'хэтчбек':
+        elif objtob == 'хэтчбек':
             objtob = 'HATCHBACK'
-        elif sheetobject.cell(row=iobj, column=8).value == 'хэтчбек 3дв.':
+        elif objtob == 'хэтчбек 3дв.':
             objtob = 'hatchback_3_doors'
-        elif sheetobject.cell(row=iobj, column=8).value == 'хэтчбек 5дв.':
+        elif objtob == 'хэтчбек 5дв.':
             objtob = 'hatchback_5_doors'
-        elif sheetobject.cell(row=iobj, column=8).value == 'внедорожник':
+        elif objtob == 'внедорожник':
             objtob = 'allroad'
-        elif sheetobject.cell(row=iobj, column=8).value == 'внедорожник 3дв.':
+        elif objtob == 'внедорожник 3дв.':
             objtob = 'allroad_3_doors'
-        elif sheetobject.cell(row=iobj, column=8).value == 'внедорожник 5дв.':
+        elif objtob == 'внедорожник 5дв.':
             objtob = 'allroad_5_doors'
-        elif sheetobject.cell(row=iobj, column=8).value == 'универсал':
+        elif objtob == 'универсал':
             objtob = 'wagon'
-        elif sheetobject.cell(row=iobj, column=8).value == 'купе':
+        elif objtob == 'купе':
             objtob = 'coupe'
-        elif sheetobject.cell(row=iobj, column=8).value == 'минивэн':
+        elif objtob == 'минивэн':
             objtob = 'minivan'
-        elif sheetobject.cell(row=iobj, column=8).value == 'пикап':
+        elif objtob == 'пикап':
             objtob = 'pickup'
-        elif sheetobject.cell(row=iobj, column=8).value == 'лимузин':
+        elif objtob == 'лимузин':
             objtob = 'limousine'
-        elif sheetobject.cell(row=iobj, column=8).value == 'фургон':
+        elif objtob == 'фургон':
             objtob = 'van'
-        elif sheetobject.cell(row=iobj, column=8).value == 'кабриолет':
+        elif objtob == 'кабриолет':
             objtob = 'cabrio'
         #objgear = sheetobject.cell(row=iobj, column=7).value
         #objtob = sheetobject.cell(row=iobj, column=8).value
         #objkpp = sheetobject.cell(row=iobj, column=9).value
-        objmileage = sheetobject.cell(row=iobj, column=11).value
+        
         #print(objyear)
         try:
-            year1 = objyear - 1
+            year1 = int(objyear) - 1
+            
         except:
             break
-        #print(year1, objyear)
-        year2 = objyear + 1
+        print(year1, objyear)
+        year2 = int(objyear) + 1
 
         hp1 = round(float(objhp) * 0.95)
         hp2 = round(float(objhp) * 1.05)
@@ -146,8 +153,8 @@ def autoru_appraiser(wbname):
         if 9000 < vol2 < 10000:
             vol2 = 10000
 
-        millage1 = int(objmileage) * 0.75
-        millage2 = int(objmileage) * 1.25
+        millage1 = int(objmileage) * 0.50
+        millage2 = int(objmileage) * 1.50
         if millage2 < 10000:
             millage2 = millage2 + 30000
         if millage2 > 200000:
@@ -155,7 +162,7 @@ def autoru_appraiser(wbname):
         totalprice = 0
         totalpriceall = 0
         totalpricemedian = []
-
+        
         url = 'https://auto.ru/cars/' + str(objmarka) + '/' + str(objmodel) + '/all/body-' + str(objtob) + '/?year_from=' + str(year1) + '&year_to=' + str(year2) + '&power_from=' + str(hp1) + '&displacement_from=' + str(vol1).replace('.0','') + '&displacement_to=' + str(vol2).replace('.0','') + '&transmission=' + str(objkpp) + '&power_to=' + str(hp2) + '&km_age_from=' + str(round(millage1,-1)).replace('.0','') + '&km_age_to=' + str(round(millage2,-1)).replace('.0','') + '&engine_group=' + str(objeng) + '&gear_type=' + str(objgear)
         #body_type_group = SEDAN & body_type_group = HATCHBACK & body_type_group = HATCHBACK_3_DOORS & body_type_group = HATCHBACK_5_DOORS & body_type_group = LIFTBACK & body_type_group = ALLROAD & body_type_group = ALLROAD_3_DOORS & body_type_group = ALLROAD_5_DOORS & body_type_group = WAGON & body_type_group = COUPE & body_type_group = MINIVAN & body_type_group = PICKUP & body_type_group = LIMOUSINE & body_type_group = VAN & body_type_group = CABRIO
         #ROBOT&transmission=AUTOMATIC&transmission=VARIATOR&transmission=AUTO
