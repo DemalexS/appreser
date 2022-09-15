@@ -74,8 +74,8 @@
           </div>
           <div class="form-group col-md">
             <label for="obj_year">Год выпуска</label>
-            <select class="form-control" id="obj_year" name="obj_year">
-              <option> </option>
+            <select class="form-control" id="obj_year" name="obj_year" required>
+              <option selected disabled value=""> </option>
               <option>1990</option>
               <option>1991</option>
               <option>1992</option>
@@ -114,8 +114,8 @@
           </div>
           <div class="form-group col-md">
             <label for="obj_eng">Тип двигателя</label>
-            <select class="form-control" id="obj_eng" name="obj_eng">
-              <option> </option>
+            <select class="form-control" id="obj_eng" name="obj_eng" required>
+              <option selected disabled value=""> </option>
               <option>бензин</option>
               <option>дизель</option>
               <option>гибрид</option>
@@ -126,16 +126,16 @@
         <div class="row">
           <div class="form-group col-md">
             <label for="obj_engvol">Объем двигателя, куб.см.</label>
-            <input class="form-control form-control-md" type="text" placeholder="2000" id="obj_engvol" name="obj_engvol"/>
+            <input class="form-control form-control-md" type="text" placeholder="Пример: 2000" id="obj_engvol" name="obj_engvol" required/>
           </div>
           <div class="form-group col-md">
             <label for="obj_hp">Мощность двигателя, л.с.</label>
-            <input class="form-control form-control-md" type="text" placeholder="218" id="obj_hp" name="obj_hp"/>
+            <input class="form-control form-control-md" type="text" placeholder="Пример: 218" id="obj_hp" name="obj_hp" required/>
           </div>
           <div class="form-group col-md">
             <label for="obj_kpp">КПП</label>
-            <select class="form-control" id="obj_kpp"  name="obj_kpp">
-              <option> </option>
+            <select class="form-control" id="obj_kpp"  name="obj_kpp" required>
+              <option selected disabled value=""> </option>
               <option>механика</option>
               <option>автомат</option>
               <option>робот</option>
@@ -146,8 +146,8 @@
         <div class="row">
           <div class="form-group col-md">
             <label for="obj_gear">Привод</label>
-            <select class="form-control" id="obj_gear" name="obj_gear">
-              <option> </option>
+            <select class="form-control" id="obj_gear" name="obj_gear" required>
+              <option selected disabled value=""> </option>
               <option>полный</option>
               <option>задний</option>
               <option>передний</option>
@@ -155,8 +155,8 @@
           </div>
           <div class="form-group col-md">
             <label for="obj_tob">Тип кузова</label>
-            <select class="form-control" id="obj_tob" name="obj_tob">
-              <option> </option>
+            <select class="form-control" id="obj_tob" name="obj_tob" required>
+              <option selected disabled value=""> </option>
               <option>седан</option>
               <option>хэтчбек</option>
               <option>хэтчбек 3дв.</option>
@@ -175,14 +175,14 @@
           </div>
           <div class="form-group col-md">
             <label for="obj_mileage">Пробег, км.</label>
-            <input class="form-control form-control-md" type="text" placeholder="100000" id="obj_mileage" name="obj_mileage"/>
+            <input class="form-control form-control-md" type="text" placeholder="Пример: 100000" id="obj_mileage" name="obj_mileage" required/>
           </div>
           
         </div>
         <input type="submit" class="btn btn-primary" value="Оценить">
       </form>
     </div>
-      
+    
     <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
