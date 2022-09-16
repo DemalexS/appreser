@@ -53,14 +53,14 @@
         <P> </P>
         <div class="row">
           <div class="form-group col-md">
-            <form method="POST" class="text-center text-muted" action="/submit" enctype="multipart/form-data">
+            <form method="POST" class="text-center text-muted" action="/submit" enctype="multipart/form-data" >
                 {{ form.hidden_tag() }}
                 
-                {{ form.file.label }} {{ form.file(size=20) }}
-                <input type="submit" class="btn btn-primary" value="Оценить">
+                {{ form.file.label(файл) }} {{ form.file(size=20) }}
+                <input type="submit" class="btn btn-primary" value="Оценить" >
                 
             </form>
-          
+            
             <P> </P>
             <form class="text-center text-muted" action="/static/Шаблон.xlsx" target="_blank">
               <button class="btn btn-primary">Скачать Шаблон</button>
@@ -68,5 +68,6 @@
           </div>
         </div>
       </div>
+    
   </body>
 </html>

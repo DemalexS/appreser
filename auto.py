@@ -3,6 +3,7 @@ from os import lseek
 from pprint import pprint
 from bs4 import BeautifulSoup
 from random import choice
+import random
 import requests
 import openpyxl
 from fake_useragent import UserAgent
@@ -171,7 +172,7 @@ def autoru_appraiser(wbname):
         print(url)
                 
         user = UserAgent().random
-        cookies = {'_csrf_token': '4339396c17d0de9eae9f1c650ec6066a45eab30e862fd11a', 
+        cookie_one = {'_csrf_token': '4339396c17d0de9eae9f1c650ec6066a45eab30e862fd11a', 
                 'suid': 'e43436fa3922a09ece744acad847503e.8fd345446dfa3dae2686e14b002e5a12',
                 'from': 'direct', 
                 'gdpr': '0',
@@ -199,6 +200,35 @@ def autoru_appraiser(wbname):
                 'from_lifetime': '1656572551611', 
                 '_ym_d': '1656572551', 
                 'cycada': 'vSZ8GwepZ9WvKrK76MQTehBqOB75p8DO44Pj0lAPZes='}
+        cookie_two = {'suid': '65834b02185b6cd61a4bc76cdc9a4fe7.5b97d40aac67cf9a9e6f3f0b29ae2738', 
+                'gdpr': '0', 
+                '_ym_uid': '1654251044667232301', 
+                'yandex_login': 'dema.lex', 
+                'i': 'aGjQyNZ/ZRO65SUHj4wbP23Z6tJI4SULlDWv1aObZTJOmWNWij30yDKW3BV75P16qIHY79JnfxHmSck2fZGOAPTDbXc=', 
+                'gradius': '1100', 
+                'gids': '', 
+                'yandexuid': '9671052191649090137', 
+                'autoru-visits-count': '1', 
+                'yuidlt': '1', 
+                'autoru_sid': 'a%3Ag6310cc6226vmijk6sb8d7rm5q1rbchr.db3207eb5930dd7472c188ac8831b3ea%7C1662987638286.604800.Upm04ekihi6YPeDzDsHz9g.6O-jtA7rWalispYFDBWutuy0rjSRmv2m4-HaHRFNAbY', 
+                'crookie': 'CDc9bYHo+AX1Ap5MOeBlzGPXQVvFRiXtog37ZgqZjinA8NMwCCl/QCR7qGvop5PpSiMhlmTZ7wtN10geQdwRiDie9VA=', 
+                'cmtchd': 'MTY2Mjk4NzY0MDE1OA==', 
+                'autoruuid': 'g6310cc6226vmijk6sb8d7rm5q1rbchr.db3207eb5930dd7472c188ac8831b3ea', 
+                '_ym_isad': '2', 
+                '_ym_visorc': 'b', 
+                'spravka': 'dD0xNjYzMzQwMjQ4O2k9MzEuMTczLjgwLjExNDtEPTRDNTFENkY2NzZBMTlGOUYyODI2NjJEQjhDMjhCMjY5Nzc5MkRENUJCMDU1RkY1ODZGRTkwMzlGOUQzRkZCRjY4QzdGNzg3Qzt1PTE2NjMzNDAyNDg1MzA4NDQzOTU7aD0yMzUwODE1M2QyODFiOGYyZWRhN2ViMmQyMTdlNGFlZQ==', 
+                'Session_id': '3:1663340257.5.0.1649090824573:FEqwsg:20.1.2:1|401706160.0.2|61:10007439.183766.mLkUfhobq7_dQEjGS6D9QYOdemM', 
+                'mda2_beacon': '1663340257300', 
+                'sso_status': 'sso.passport.yandex.ru:synchronized', 
+                '_csrf_token': 'c6f92559c01351f07eded71e07a2e8d5e73f627000cfb787', 
+                'from': 'direct', 
+                '_yasc': 'mfT9HR3PWBnnfO6xHtABm4Nmf9H0in1mpH/fhATTYe32kg6T', 
+                'layout-config': '{"win_width":498.3999938964844,"win_height":736.7999877929688}', 
+                '_ym_d': '1663340420', 
+                'from_lifetime': '1663340420414', 
+                'cycada': 'LX7X2UW1ZDYfOT4Erpc14yi3/gL9kZfLyu8xzELZaHA=' }
+        cookies_list = [cookie_one, cookie_two]
+        cookies = random.choice(cookies_list)
         headers = {'user-agent': user,
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", 
                 "Accept-Encoding": "gzip, deflate, br", 

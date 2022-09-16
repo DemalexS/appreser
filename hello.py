@@ -24,7 +24,8 @@ def redir_submit():
 
 class MyForm(FlaskForm):
     # name = 'name'
-    file = FileField(validators=[DataRequired()])
+    file = FileField(validators=[DataRequired()]
+                    )
 # @app.route('/index', methods=['GET', 'POST'])
 # def form():
 
